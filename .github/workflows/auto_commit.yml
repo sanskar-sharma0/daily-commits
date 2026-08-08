@@ -1,0 +1,33 @@
+name: Daily Auto Commit (Multiple)
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Roz Indian time ke hisaab se dopahar 11:30 baje chalega
+  workflow_dispatch: # Button se manually chalane ke liye
+
+jobs:
+  auto_commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: 6 Commits lagataar banao
+        run: |
+          # Git profile set kar rahe hain
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "action@github.com"
+          
+          # Yeh loop 6 baar chalega (Agar zyada chahiye toh 6 ki jagah 10 ya 15 likh dena)
+          for i in {1..6}
+          do
+            # File mein naya text add karega
+            echo "Commit number $i on $(date)" >> auto_update.txt
+            
+            # File ko add aur commit karega
+            git add auto_update.txt
+            git commit -m "Daily contribution $i - $(date +'%Y-%m-%d')"
+          done
+          
+          # 6 commits banne ke baad ek sath GitHub par upload kar dega
+          git push
