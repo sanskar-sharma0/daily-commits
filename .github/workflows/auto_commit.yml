@@ -15,7 +15,7 @@ jobs:
       - name: 6 Commits lagataar banao
         run: |
           git config --global user.name "sanskar-sharma0"
-          git config --global user.email "vanssharma0090@gmail.com"
+          git config --global user.email ""
           
           # Yahan direct numbers likh diye hain taaki koi error na aaye
           for i in 1 2 3 4 5 6
